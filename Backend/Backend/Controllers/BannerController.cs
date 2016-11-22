@@ -21,14 +21,14 @@ namespace Backend.Controllers
             _bannerService = new BannerService();
         }
 
-        // GET: api/Banner
+        // GET: api/banner
         public async Task<IHttpActionResult> Get()
         {
             var banners = await _bannerService.GetBanners();
             return Ok(banners);
         }
 
-        // GET: api/Banner/5
+        // GET: api/banner/id
         public async Task<IHttpActionResult> Get(string id)
         {
             var banner = await _bannerService.GetBannerById(id);
@@ -36,7 +36,7 @@ namespace Backend.Controllers
             return Ok(banner);
         }
 
-        // POST: api/Banner
+        // POST: api/banner
         public async Task<IHttpActionResult> Post(Banner newBanner)
         {
             if (ModelState.IsValid)
@@ -50,12 +50,12 @@ namespace Backend.Controllers
             return BadRequest();
         }
 
-        // PUT: api/Banner/5
-        public async Task<IHttpActionResult> Put(Banner newBanner)
+        // PUT: api/banner/id
+        public async Task<IHttpActionResult> Put(string id, Banner newBanner)
         {
             if (ModelState.IsValid)
             {
-                var banner = await _bannerService.UpdateBanner(newBanner);
+                var banner = await _bannerService.UpdateBanner(id, newBanner);
                 if (banner == null) return BadRequest("Not found or not valid html");
                 return Ok(banner);
             }
@@ -63,7 +63,7 @@ namespace Backend.Controllers
             return BadRequest(ModelState);
         }
 
-        // DELETE: api/Banner/5
+        // DELETE: api/banner/id
         public async Task<IHttpActionResult> Delete(string id)
         {
             if (await _bannerService.DeleteBanner(id) > 0) return Ok();

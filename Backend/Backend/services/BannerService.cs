@@ -46,11 +46,11 @@ namespace Backend.services
             return null;
         }
 
-        public async Task<Banner> UpdateBanner(Banner banner)
+        public async Task<Banner> UpdateBanner(string id, Banner banner)
         {
             if (!banner.Html.IsValidHtml()) return null;
-
-            var filter = Builders<Banner>.Filter.Eq(s => s.Id, banner.Id);
+            
+            var filter = Builders<Banner>.Filter.Eq(s => s.Id, id);
             var update = Builders<Banner>.Update
                 .Set("Html", banner.Html)
                 .CurrentDate("Modified");

@@ -12,7 +12,7 @@ namespace Backend.Interfaces
         Task<List<Banner>> GetBanners();
         Task<Banner> GetBannerById(string id);
         Task<Banner> CreateBanner(Banner banner);
-        Task<Banner> UpdateBanner(Banner banner);
+        Task<Banner> UpdateBanner(string id, Banner banner);
         Task<long> DeleteBanner(string id);
     }
 }
