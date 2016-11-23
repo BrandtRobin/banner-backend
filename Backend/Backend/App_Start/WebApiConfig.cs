@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Backend
 {
@@ -18,8 +19,12 @@ namespace Backend
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            // Get json response
+            // Get response in json 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+            // Enable CORS
+            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            config.EnableCors(cors);
         }
     }
 }
