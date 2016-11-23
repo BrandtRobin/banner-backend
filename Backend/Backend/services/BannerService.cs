@@ -19,6 +19,8 @@ namespace Backend.services
 
         public BannerService()
         {
+            // Instantiating mongo client
+            // could and should be improved by using DI
             IMongoClient client = new MongoClient();
             var db = client.GetDatabase("test");
             _bannerCollection = db.GetCollection<Banner>("banners");
@@ -35,7 +37,8 @@ namespace Backend.services
             var banner = await _bannerCollection.AsQueryable().FirstOrDefaultAsync(s => s.Id == id);
             return banner;
         }
-
+        // Using html agilty pack for validating strings as valid html
+        // implemented it as string extension method.
         public async Task<Banner> CreateBanner(Banner banner)
         {
             if (banner.Html.IsValidHtml())
@@ -52,12 +55,12 @@ namespace Backend.services
             
             var filter = Builders<Banner>.Filter.Eq(s => s.Id, id);
             var update = Builders<Banner>.Update
-                .Set("Html", banner.Html)
+                .Set("Html", banner.Html) // Update html and modified attributes.
                 .CurrentDate("Modified");
 
             var options = new FindOneAndUpdateOptions<Banner>
             {
-                ReturnDocument = ReturnDocument.After
+                ReturnDocument = ReturnDocument.After // Updated doc returned instead of old doc.
             };
 
             var result = await _bannerCollection.FindOneAndUpdateAsync(filter, update, options);

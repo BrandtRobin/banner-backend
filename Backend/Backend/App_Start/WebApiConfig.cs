@@ -22,7 +22,7 @@ namespace Backend
             // Get response in json 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
-            // Enable CORS
+            // Enable CORS - If you want access from different origin, specify here.
             var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
             config.EnableCors(cors);
         }

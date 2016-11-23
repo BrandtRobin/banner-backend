@@ -70,6 +70,7 @@ namespace Backend.Controllers
             return NotFound();
         }
 
+        // Renders the html directly
         [Route("api/banner/{id}/html")]
         public async Task<HttpResponseMessage> GetHtml(string id)
         {
